@@ -1,2 +1,5 @@
- *.exe
- /env
+# Distribution / packaging
+.Python
+env/
+# Byte-compiled / optimized / DLL files
+ __pycache__/
