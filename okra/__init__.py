@@ -40,12 +40,6 @@ def create_app(config_filename=None):
         return render_template('home.html')
 
     app.add_url_rule('/', 'home', home)
-
-    #app.app_context().push()
-    #with app.test_request_context():
-    #auth.authorization()
-    #token = auth.authorization()
-    #journal.session['oauth_token'] = token
     
     return app
 
@@ -79,7 +73,13 @@ def register_blueprints(app):
     from okra.users import users_blueprint
     from okra.okrabusiness import okrabusiness_blueprint
     from okra.okrabusiness.geoservice import geoservice_blueprint
+    from okra.okramission import okramission_blueprint
+    from okra.okramission.dashboards import dashboards_blueprint
+    from okra.okramission.fatsecret import fatsecret_blueprint
     app.register_blueprint(users_blueprint)
     app.register_blueprint(okrabusiness_blueprint)
     app.register_blueprint(geoservice_blueprint)
+    app.register_blueprint(okramission_blueprint)
+    app.register_blueprint(dashboards_blueprint)
+    app.register_blueprint(fatsecret_blueprint)
 
