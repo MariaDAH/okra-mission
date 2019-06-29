@@ -21,7 +21,7 @@ def registerbusiness():
     updated_on = datetime.date.today
     if request.method == 'POST' and form.validate_on_submit():
         new_business = Business(form.name.data, form.userid.data, form.website.data, 
-        form.location.data, form.telephonenumber.data, form.commnent.data, form.subscriptionplan.data,
+        form.location.data, form.category.data, form.telephonenumber.data, form.commnent.data, form.subscriptionplan.data,
         form.email.data, registered_on, updated_on)
         db.session.add(new_business)
         db.session.commit()

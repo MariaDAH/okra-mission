@@ -78,6 +78,8 @@ def register_blueprints(app):
     # with the Flask application instance (app)
     from okra.users import users_blueprint
     from okra.okrabusiness import okrabusiness_blueprint
+    from okra.okrabusiness.geoservice import geoservice_blueprint
     app.register_blueprint(users_blueprint)
     app.register_blueprint(okrabusiness_blueprint)
+    app.register_blueprint(geoservice_blueprint)
 

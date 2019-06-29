@@ -83,12 +83,13 @@ class Business(db.Model):
     registered_on = db.Column(db.DateTime, nullable=True)
     updated_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, name, userid, website, location, telephonenumber, 
+    def __init__(self, name, userid, website, location, category, telephonenumber, 
         comment, subscriptionplan, email, registered_on, updated_on):
         self.name = name
         self.userid = userid
         self.website = website
         self.location = location
+        self.category = category
         self.telephonenumber = telephonenumber
         self.comment = comment
         self.subscriptionplan = subscriptionplan

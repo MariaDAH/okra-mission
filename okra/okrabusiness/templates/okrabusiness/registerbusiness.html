@@ -36,6 +36,13 @@
             {% endfor %}
         </p>
         <p>
+            {{ form.category.label }}<br>
+            {{ form.category(size=64) }}<br>
+            {% for error in form.category.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.telephonenumber.label }}<br>
             {{ form.telephonenumber(size=64) }}<br>
             {% for error in form.telephonenumber.errors %}
