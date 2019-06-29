@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Okra mission</title>
+  </head>
+  <body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="food-container" style="overflow: auto; max-height: 80vh">
+        <div class="table-responsive">
+            <table class="table" id="foods">
+                <thead>
+                    <tr>
+                        <th scope="col">Food_description</th>
+                        <th scope="col">Food_id</th>
+                        <th scope="col">Food_name</th>
+                        <th scope="col">Food_type</th>
+                        <th scope="col">Food_url</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for food in foods %}
+                    <tr id={{ food.id }}>
+                        <th scope="row">{{ food.food_description }}</th>
+                        <td> {{ food.food_id }} </td>
+                        <td> {{ food.food_name }} </td>
+                        <td> {{ food.food_type }} </td>
+                        <td> {{ food.food_url }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    {% endblock %}
+  </body>
+</html>

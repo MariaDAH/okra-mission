@@ -1,0 +1,5 @@
+from flask import Blueprint
+okramission_blueprint = Blueprint('okramission', __name__, template_folder='templates')
+
+#from . import routes
+
