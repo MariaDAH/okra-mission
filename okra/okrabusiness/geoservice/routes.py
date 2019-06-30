@@ -6,7 +6,7 @@ from flask import render_template, request, flash, redirect, url_for
 
 from . import geoservice_blueprint
 from .forms import SearchForm
-from okra.models import Business
+from okra.models import Ecobusiness
 from okra import db
 
 ################

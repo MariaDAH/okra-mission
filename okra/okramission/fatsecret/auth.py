@@ -8,8 +8,12 @@ from flask import (
 from flask import current_app as app
 from . import routes
 
-clientID = os.environ['CLIENT_ID']
-clientSecret = os.environ['CLIENT_SECRET']
+#clientID = os.environ['CLIENT_ID']
+#clientSecret = os.environ['CLIENT_SECRET']
+clientID='40ca6a9cd34648fd80be50827fe46f7d'
+clientSecret='27622b8b211f4ace9d57283a0cb06f89'
+
+#token_endpoint = app.config['FATSECRET_TOKEN_ENDPOINT']
 
 def authorization():
     '''Implement OAuth2 authorization to que access_token as a backend client'''

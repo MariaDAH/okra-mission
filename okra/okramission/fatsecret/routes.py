@@ -6,16 +6,19 @@ from flask import (
 from . import auth
 from . import fatsecretapi as api
 from . import fatsecret_blueprint
+from flask_login import login_required
+import flask
 
 
 @fatsecret_blueprint.route('/searchfoods', methods=('GET', 'POST'))
+@login_required
 def searchfoods():
 
-    if session['oauth_token'] is None:
+    if not session.get('oauth_token') is None:
+        token = session['oauth_token']
+    else:
         token = auth.authorization()
         session['oauth_token'] = token
-    else:
-        token = session['oauth_token']
 
     if request.method == 'POST':
         food = request.form["food"]  
@@ -36,11 +39,13 @@ def searchfoods():
 
     return render_template('fatsecret/searchfoods.html')
 
+@login_required
 def select_item(id):
     url_for('getfood',id=id)
 
 
 @fatsecret_blueprint.route('/getfood/<int:id>', methods=['GET'])
+@login_required
 def getfood(id):
     
     if request.method == 'POST':

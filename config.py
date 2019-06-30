@@ -8,10 +8,13 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     WTF_CSRF_ENABLED = False
-    FLASK_APP = "okra"
-    SECRET_KEY='okra-secret'
+    FLASK_APP = "okra" 
+    #To be randomly generated
+    SECRET_KEY='okra-secret' 
     # Bcrypt algorithm hashing rounds
     BCRYPT_LOG_ROUNDS = 4
+    FATSECRET_TOKEN_ENDPOINT = 'https://oauth.fatsecret.com/connect/token'
+    FATSECRET_REFRESH_ENDPOINT = 'https://oauth.fatsecret.com/connect/token'
 
 
 class ProductionConfig(Config):

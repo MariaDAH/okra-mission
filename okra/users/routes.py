@@ -20,6 +20,13 @@ from okra import db
 def profile():
     return render_template('users/profile.html')
 
+@users_blueprint.route('/show_user')
+@login_required
+def show_user():
+    email = current_user.email
+    user = User.query.filter_by(email=email).first_or_404()
+    return render_template('users/show_user.html',user=user)
+
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -73,4 +80,4 @@ def logout():
     db.session.commit()
     logout_user()
     flash('Goodbye!')
-    return redirect(url_for('recipes.index'))
+    return redirect(url_for('home'))

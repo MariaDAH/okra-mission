@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% set title = 'My profile' %}
+
+{% block content %}
+    <br>
+    <h1>My profile</h1>
+    <p>
+        Email {{ user.email}}<br>
+    </p>
+    <p>
+        Role {{ user.role }}<br>
+    </p>
+{% endblock %}

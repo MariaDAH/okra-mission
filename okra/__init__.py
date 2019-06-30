@@ -22,11 +22,12 @@ login.login_view = "users.login"
 #### Application Factory Function ####
 ######################################
 
-def create_app(config_filename=None):
+def create_app(config_filename):
 
     #using config file
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_pyfile(config_filename)
+    #app.config.from_pyfile(config_filename)
+    app.config.from_pyfile('flask.cfg')
 
     #using setup from environment variable and config file
     #app = Flask(__name__, instance_path=os.path.abspath(os.path.dirname(__file__)))
@@ -43,7 +44,6 @@ def create_app(config_filename=None):
     
     return app
 
-
 ##########################
 #### Helper Functions ####
 ##########################
@@ -57,11 +57,8 @@ def initialize_extensions(app):
 
     # Flask-Login configuration
     from okra.models import User
-    from okra.models import Business
-
-    with app.app_context():
-        db.create_all()
-
+    from okra.models import Ecobusiness
+        
     @login.user_loader
     def load_user(user_id):
         return User.query.filter(User.id == int(user_id)).first()

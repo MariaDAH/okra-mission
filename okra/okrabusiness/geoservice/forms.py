@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError
-from okra.models import Business
+from okra.models import Ecobusiness
 
 
 class SearchForm(FlaskForm):

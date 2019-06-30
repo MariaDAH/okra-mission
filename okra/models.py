@@ -1,5 +1,8 @@
 from okra import db, bcrypt
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Sequence, ForeignKey
+
 
 class User(db.Model):
     """
@@ -13,13 +16,15 @@ class User(db.Model):
     """
 
     __tablename__ = 'users'
+    __table_args__ = {'extend_existing': True}
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True, nullable=False)
     hashed_password = db.Column(db.Binary(60), nullable=False)
     authenticated = db.Column(db.Boolean, default=False)
     registered_on = db.Column(db.DateTime, nullable=True)
     role = db.Column(db.String, default='user')
+    ecobusinesses = db.relationship('Ecobusiness', backref=db.backref('user', lazy=False))
     #roles: user(default) - associate(has ecobusiness registered) - admin
 
     def __init__(self, email, plaintext_password, role='user'):
@@ -57,10 +62,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.email)
 
-from okra import db, bcrypt
-from datetime import datetime
-
-class Business(db.Model):
+class Ecobusiness(db.Model):
     """
     Class that represents a eco business registered in the application
 
@@ -69,37 +71,51 @@ class Business(db.Model):
         date that the business was registered on
     """
 
-    __tablename__ = 'ecobusiness'
+    __tablename__ = 'ecobusinesses'
+    __table_args__ = {'extend_existing': True}
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, Sequence('business_id_seq'), primary_key=True, autoincrement=True)
     name = db.Column(db.String, unique=True, nullable=False)
-    userid = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    #user_id = db.Column(db.Integer, nullable=False)
     website = db.Column(db.String, unique=True, nullable=False)
     location = db.Column(db.String, nullable=False)
-    telephonenumber = db.Column(db.String, nullable=False)
+    phonenumber = db.Column(db.String, nullable=False)
     comment = db.Column(db.String, nullable=False)
     subscriptionplan = db.Column(db.String, nullable=False) 
     email = db.Column(db.String, unique=True, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=True)
     updated_on = db.Column(db.DateTime, nullable=True)
+    category = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, name, userid, website, location, category, telephonenumber, 
+    def __init__(self, name, user_id, website, location, category, phonenumber, 
         comment, subscriptionplan, email, registered_on, updated_on):
         self.name = name
-        self.userid = userid
+        self.user_id = user_id
         self.website = website
         self.location = location
         self.category = category
-        self.telephonenumber = telephonenumber
+        self.phonenumber = phonenumber
         self.comment = comment
         self.subscriptionplan = subscriptionplan
         self.email = email
         self.registered_on = registered_on
         self.updated_on = updated_on
-       
 
     def __repr__(self):
-        return '<Business {}>'.format(self.name)
+        return '<Ecobusiness {}{}>'.format(self.name, self.website)
 
 
+class Category(db.Model):
 
+    __tablename__ = 'categories'
+    __table_args__ = {'extend_existing': True}
+    
+    id = db.Column(db.Integer, Sequence('category_id_seq'), primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<Category %r>' % self.name

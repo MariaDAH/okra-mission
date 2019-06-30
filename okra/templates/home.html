@@ -7,9 +7,11 @@
   <body>
     {% extends "base.html" %}
     {% block content %}
-      <div>
-        <a class="nav-item nav-link" href="{{ url_for('fatsecret.searchfoods') }}">Fatsecret mission</a>
-      </div>
+      {% if current_user.is_authenticated %}
+        <div>
+          <a class="nav-item nav-link" href="{{ url_for('fatsecret.searchfoods') }}">Fatsecret mission</a>
+        </div>
+      {% endif %}
     {% endblock %}
   </body>
 </html>
