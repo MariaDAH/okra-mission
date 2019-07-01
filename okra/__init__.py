@@ -22,7 +22,7 @@ login.login_view = "users.login"
 #### Application Factory Function ####
 ######################################
 
-def create_app(config_filename):
+def create_app(config_filename=None):
 
     app = Flask(__name__, instance_relative_config=True)
 

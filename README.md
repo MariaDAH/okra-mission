@@ -39,10 +39,17 @@
  - from okra import db
  - db.create_all()
  - if error try:
+     - from okra import db,create_app
      - import os
      - os.environ['APP_SETTINGS']='config.DevelopmentConfig'
-     - from okra import create_app
-
+     - app=create_app()
+     - app.app_context().push()
+     - db.create_all()
+     - from okra import users
+     - db.session.execute("SELECT * from users")
+     - other way better: from okra.models import Category
+     - retail = Category(name="Retail")
+ 
  - if using main.py as flask_app    
  - app = create_app('flask.cfg')
  - app.app_context().push()
@@ -55,6 +62,7 @@
  - for row in result:print(row)
 
 ##query schema
+ - import MetaData
  - metadata = MetaData(engine, reflect=True)
  - print(metadata.tables)
 
