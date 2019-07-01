@@ -7,7 +7,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP":"main.py",
+                "FLASK_APP":"okra",
                 "FLASK_ENV":"development",
                 "DEBUG":"True"
             },

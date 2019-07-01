@@ -3,7 +3,6 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Sequence, ForeignKey
 
-
 class User(db.Model):
     """
     Class that represents a user of the application
@@ -16,7 +15,8 @@ class User(db.Model):
     """
 
     __tablename__ = 'users'
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
+    #roles: user(default) - associate(has ecobusiness registered) - admin
 
     id = db.Column(db.Integer, Sequence('user_id_seq'), primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -24,8 +24,8 @@ class User(db.Model):
     authenticated = db.Column(db.Boolean, default=False)
     registered_on = db.Column(db.DateTime, nullable=True)
     role = db.Column(db.String, default='user')
-    ecobusinesses = db.relationship('Ecobusiness', backref=db.backref('user', lazy=False))
-    #roles: user(default) - associate(has ecobusiness registered) - admin
+
+    ecobusinesses = db.relationship('Ecobusiness', lazy='select',backref=db.backref('user', lazy='joined'))
 
     def __init__(self, email, plaintext_password, role='user'):
         self.email = email
@@ -72,12 +72,11 @@ class Ecobusiness(db.Model):
     """
 
     __tablename__ = 'ecobusinesses'
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, Sequence('business_id_seq'), primary_key=True, autoincrement=True)
     name = db.Column(db.String, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    #user_id = db.Column(db.Integer, nullable=False)
     website = db.Column(db.String, unique=True, nullable=False)
     location = db.Column(db.String, nullable=False)
     phonenumber = db.Column(db.String, nullable=False)
@@ -86,15 +85,19 @@ class Ecobusiness(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=True)
     updated_on = db.Column(db.DateTime, nullable=True)
-    category = db.Column(db.Integer, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
 
-    def __init__(self, name, user_id, website, location, category, phonenumber, 
+    #defining relations between entities
+    category = db.relationship('Category', lazy='select', backref=db.backref('businesses', lazy=True))
+  
+
+    def __init__(self, name, user_id, website, location, category_id, phonenumber, 
         comment, subscriptionplan, email, registered_on, updated_on):
         self.name = name
         self.user_id = user_id
         self.website = website
         self.location = location
-        self.category = category
+        self.category_id = category_id
         self.phonenumber = phonenumber
         self.comment = comment
         self.subscriptionplan = subscriptionplan
@@ -109,7 +112,7 @@ class Ecobusiness(db.Model):
 class Category(db.Model):
 
     __tablename__ = 'categories'
-    __table_args__ = {'extend_existing': True}
+    #__table_args__ = {'extend_existing': True}
     
     id = db.Column(db.Integer, Sequence('category_id_seq'), primary_key=True)
     name = db.Column(db.String(50), nullable=False)

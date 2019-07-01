@@ -3,11 +3,11 @@
 #################
 
 from flask import render_template, request, flash, redirect, url_for
-
+from okra import db
 from . import geoservice_blueprint
 from .forms import SearchForm
 from okra.models import Ecobusiness
-from okra import db
+
 
 ################
 #### routes ####
@@ -21,10 +21,14 @@ def searchbusiness():
         location = form.location.data
         category = form.category.data
         name = form.name.data
+        result = Ecobusiness.query.filter_by(name=name).first_or_404()
+        if result :
+            flash('No results found for parameters, {}-{}-{}-{}!'.format(identifier,location, category, name))
         return redirect(url_for('geoservice.locationsmap',identifier=identifier, 
-        location=location, category=category, name=name))
+        location=location, category=category, name=name, result=result.name))
     return render_template('geoservice/searchbusiness.html', form=form)
 
 @geoservice_blueprint.route('/locationsmap', methods=['GET', 'POST'])
 def locationsmap():
-    return ''
+    test = request.args['result']
+    return render_template('geoservice/locationsmap.html', result=test)

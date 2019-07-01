@@ -24,14 +24,13 @@ login.login_view = "users.login"
 
 def create_app(config_filename):
 
-    #using config file
     app = Flask(__name__, instance_relative_config=True)
-    #app.config.from_pyfile(config_filename)
-    app.config.from_pyfile('flask.cfg')
 
-    #using setup from environment variable and config file
-    #app = Flask(__name__, instance_path=os.path.abspath(os.path.dirname(__file__)))
-    #app.config.from_object(os.environ['APP_SETTINGS'])
+    #using config file instance folder
+    #app.config.from_pyfile(config_filename)
+
+    #configuring from external file reading path from env variable
+    app.config.from_object(os.environ['APP_SETTINGS'])
     
     initialize_extensions(app)
     register_blueprints(app)

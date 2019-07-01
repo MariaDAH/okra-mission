@@ -15,13 +15,20 @@ class Config(object):
     BCRYPT_LOG_ROUNDS = 4
     FATSECRET_TOKEN_ENDPOINT = 'https://oauth.fatsecret.com/connect/token'
     FATSECRET_REFRESH_ENDPOINT = 'https://oauth.fatsecret.com/connect/token'
+    CLIENT_ID='40ca6a9cd34648fd80be50827fe46f7d'
+    CLIENT_SECRET='27622b8b211f4ace9d57283a0cb06f89'
+    MAIL_USERNAME='maria.herrero@okra.online'
+    MAIL_PASSWORD=''
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, 'app.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 
 class ProductionConfig(Config):
     DEBUG = False
     DATABASE = 'production.db'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql:///' + os.path.join(BASEDIR, DATABASE)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, DATABASE)
+    #SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class StagingConfig(Config):
@@ -29,7 +36,7 @@ class StagingConfig(Config):
     DEBUG = True
     ENV = 'development'
     DATABASE = 'staging.db'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql:///' + os.path.join(BASEDIR, DATABASE)
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
@@ -37,8 +44,8 @@ class DevelopmentConfig(Config):
     DEBUG = True
     ENV = 'development'
     DATABASE = 'development.db'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql:///' + os.path.join(BASEDIR, DATABASE)
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASEDIR, DATABASE)
+    #SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):

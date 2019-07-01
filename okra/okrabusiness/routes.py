@@ -22,7 +22,7 @@ def registerbusiness():
     updated_on = datetime.datetime.now()
     if request.method == 'POST' and form.validate_on_submit():
         new_business = Ecobusiness(form.name.data, form.user_id.data, form.website.data, 
-        form.location.data, form.category.data, form.phonenumber.data, form.comment.data, 
+        form.location.data, form.category_id.data, form.phonenumber.data, form.comment.data, 
         form.subscriptionplan.data, form.email.data, registered_on, updated_on)
         db.session.add(new_business)
         db.session.commit()

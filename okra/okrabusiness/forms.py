@@ -8,7 +8,7 @@ class RegisterForm(FlaskForm):
     user_id = StringField('User Id', validators=[DataRequired(), Length(min=1, max=20)])
     website = StringField('Website', validators=[DataRequired(), Length(min=2, max=100)])
     location = StringField('Location', validators=[DataRequired(), Length(min=2, max=100)])
-    category = StringField('Category', validators=[DataRequired(), Length(min=2, max=100)])
+    category_id = StringField('Category', validators=[DataRequired(), Length(min=2, max=100)])
     phonenumber = StringField('Phone number', validators=[DataRequired(), Length(min=2, max=100)])
     comment = StringField('Comment', validators=[DataRequired(), Length(min=2, max=100)])
     subscriptionplan = StringField('Subscription Plan', validators=[DataRequired(), Length(min=2, max=100)])

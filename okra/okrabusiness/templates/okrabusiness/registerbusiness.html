@@ -36,9 +36,9 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.category.label }}<br>
-            {{ form.category(size=64) }}<br>
-            {% for error in form.category.errors %}
+            {{ form.category_id.label }}<br>
+            {{ form.category_id(size=64) }}<br>
+            {% for error in form.category_id.errors %}
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

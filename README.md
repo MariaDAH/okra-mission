@@ -32,4 +32,29 @@
  Python version to use.
  - commit changes in git
 
+#Update required packages
+ - pip freeze > requirements.txt
+
+#Creating in memory-db from iterative shell and run queries on a session
+ - from okra import db
+ - db.create_all()
+ - if error try:
+     - import os
+     - os.environ['APP_SETTINGS']='config.DevelopmentConfig'
+     - from okra import create_app
+
+ - if using main.py as flask_app    
+ - app = create_app('flask.cfg')
+ - app.app_context().push()
+ - with app.app_context(): db.create_all()
+ - engine = db.engine
+ - Session = db.sessionmaker(autoflush=False)
+ - Session.configure(bind=engine)
+ - sess = Session()
+ - result = sess.execute("SELECT * from users")
+ - for row in result:print(row)
+
+##query schema
+ - metadata = MetaData(engine, reflect=True)
+ - print(metadata.tables)
 
