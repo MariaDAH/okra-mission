@@ -3,5 +3,17 @@
 {% set title = 'Business Profile' %}
 
 {% block content %}
-    <h3>Welcome!</h3>
+    <p>
+        Business Name: {{business.name }}<br>
+        User: {{business.user }}<br>
+        Category: {{business.category }}</br>
+        Comment: {{business.comment }}</br>
+        Email: {{business.email }}</br>
+        Location: {{business.location }}</br>
+        Phone Number : {{business.phonenumber }}</br>
+        Registered On: {{business.registered_on }}</br>
+        Subscription: {{business.subscriptionplan }}</br>
+        Updated On: {{business.updated_on }}</br>
+        Website: {{business.website }}
+    </p>    
 {% endblock %}
